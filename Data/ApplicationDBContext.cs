@@ -1,11 +1,15 @@
 using Candy_Shop.Models;
+using Candy_Shop.Utilities;
 using Microsoft.EntityFrameworkCore;
+using User = Candy_Shop.Models.User;
 
 namespace Candy_Shop.Data;
 
 public class ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : DbContext(options) {
   public DbSet<Czekoladka> Czekoladki { get; set; }
   public DbSet<Zawartosc> Zawartosc { get; set; }
+
+  public DbSet<User> Users { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder) {
     base.OnModelCreating(modelBuilder);
@@ -39,6 +43,17 @@ public class ApplicationDBContext(DbContextOptions<ApplicationDBContext> options
           masa = 0.53m,
           cena = 15.32m,
           opis = "Kolejna czekoladka testowa"
+        }
+      );
+
+    modelBuilder
+      .Entity<User>()
+      .HasData(
+        new User {
+          username = "admin",
+          password = Crypto.ToMd5("admin"),
+          apiToken = Crypto.SeededGuid(123),
+          type = User.Type.Admin
         }
       );
   }

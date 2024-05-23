@@ -69,6 +69,36 @@ namespace Candy_Shop.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Candy_Shop.Models.User", b =>
+                {
+                    b.Property<string>("username")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("apiToken")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("username");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            username = "admin",
+                            apiToken = "aae1e103-bca5-9fa1-ba8c-42058b4abf28",
+                            password = "21232F297A57A5A743894A0E4A801FC3",
+                            type = 2
+                        });
+                });
+
             modelBuilder.Entity("Candy_Shop.Models.Zawartosc", b =>
                 {
                     b.Property<int>("id")

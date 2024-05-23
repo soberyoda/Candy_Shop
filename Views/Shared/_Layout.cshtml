@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Candy_Shop.Utilities
+@{
+  bool isLoggedIn = UserSession.isLoggedIn(Context.Session);
+  bool isAdmin = UserSession.isAdmin(Context.Session);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
@@ -17,17 +23,31 @@
               aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between text-dark">
         <ul class="navbar-nav flex-grow-1">
-          <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-          </li>
           <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Czekoladki" asp-action="Index">Czekoladki</a>
           </li>
+          
+          @if (isLoggedIn) {
+            if (isAdmin) {
+              <li class="nav-item dropdown">
+                <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Admin</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ShowUsers">Users</a></li>
+                </ul>
+              </li>
+            } 
+            
+            <li class="nav-item">
+              <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a>
+            </li>
+          } else {
+            <li class="nav-item">
+              <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Log In</a>
+            </li>
+          }
+          
         </ul>
       </div>
     </div>
@@ -35,13 +55,25 @@
 </header>
 <div class="container">
   <main role="main" class="pb-3">
+    @if (ViewData.ContainsKey("error")) {
+      <div class="alert alert-danger" role="alert">
+        @ViewData["error"]?.ToString()
+      </div>
+    }
+
+    @if (ViewData.ContainsKey("success")) {
+      <div class="alert alert-success" role="alert">
+        @ViewData["success"]?.ToString()
+      </div>
+    }
+
     @RenderBody()
   </main>
 </div>
 
 <footer class="border-top footer text-muted">
   <div class="container">
-    &copy; 2024 - Candy_Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    &copy; 2024 - Candy_Shop
   </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

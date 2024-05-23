@@ -1,16 +1,12 @@
 using System.Diagnostics;
+using Candy_Shop.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Candy_Shop.Models;
 
 namespace Candy_Shop.Controllers;
 
+[KeepMessages]
 public class HomeController : Controller {
-  private readonly ILogger<HomeController> _logger;
-
-  public HomeController(ILogger<HomeController> logger) {
-    _logger = logger;
-  }
-
   public IActionResult Index() {
     return View();
   }

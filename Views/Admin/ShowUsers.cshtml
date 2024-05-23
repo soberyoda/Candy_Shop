@@ -1,0 +1,35 @@
+﻿@{
+  ViewData["Title"] = "Show users";
+}
+@model IEnumerable<UserDTO>?;
+
+<div class="text-center">
+  <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Type</th>
+        <th scope="col">Api Key</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      
+      @if (Model is not null) {
+        foreach (var user in Model) {
+          <tr>
+            <td>@user.username</td>
+            <td>@user.type.ToString()</td>
+            <td>@user.apiToken</td>
+            <td></td>
+          </tr>
+        }
+      } else {
+        <tr>
+        <td colspan="4">No data to show</td>
+        </tr>
+      }
+      
+      </tbody>
+    </table>
+</div>
