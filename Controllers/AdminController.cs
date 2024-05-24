@@ -30,7 +30,7 @@ public class AdminController : Controller {
 
     var newUser = new UserDTO {
       username = username,
-      password = password, 
+      password = password, // Now it includes password
       type = type
     };
 
@@ -40,6 +40,20 @@ public class AdminController : Controller {
       TempData["error"] = "Failed to add user.";
     } else {
       TempData["success"] = "User added successfully.";
+    }
+
+    return RedirectToAction("ShowUsers");
+  }
+
+  [HttpPost]
+  [Authorized(Models.User.Type.Admin)]
+  public async Task<IActionResult> DeleteUser(string username) {
+    var response = await ApiClient.Delete($"/api/users/{username}", new ApiClient.Options { ApiKey = HttpContext.Session.GetString("apiToken") });
+
+    if (!response) {
+      TempData["error"] = "Failed to delete user.";
+    } else {
+      TempData["success"] = "User deleted successfully.";
     }
 
     return RedirectToAction("ShowUsers");

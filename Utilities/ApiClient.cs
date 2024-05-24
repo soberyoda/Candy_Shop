@@ -24,6 +24,11 @@ public static class ApiClient {
     var response = await client.SendAsync(request);
     return await ParseResponse<T>(response);
   }
+  public static async Task<bool> Delete(string url, Options? options = null) {
+    var request = PrepareMessage(url, HttpMethod.Delete, options);
+    var response = await client.SendAsync(request);
+    return response.IsSuccessStatusCode;
+  }
 
 
   private static HttpRequestMessage PrepareMessage(string url, HttpMethod method, Options? options = null) {

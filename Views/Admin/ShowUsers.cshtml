@@ -14,7 +14,6 @@ ViewData["Title"] = "Show users";
     </tr>
     </thead>
     <tbody>
-
     @if (Model is not null) {
     foreach (var user in Model) {
     <tr>
@@ -22,7 +21,7 @@ ViewData["Title"] = "Show users";
       <td>@user.type.ToString()</td>
       <td>@user.apiToken</td>
       <td>
-        <form method="post" asp-action="DeleteUser" asp-controller="Admin" style="display:inline;">
+        <form method="post" asp-action="DeleteUser" asp-controller="Admin">
           <input type="hidden" name="username" value="@user.username" />
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>
@@ -34,9 +33,9 @@ ViewData["Title"] = "Show users";
       <td colspan="4">No data to show</td>
     </tr>
     }
-
     </tbody>
   </table>
+
   <h2>Add New User</h2>
   <form method="POST" asp-action="AddUser">
     <div class="form-group">

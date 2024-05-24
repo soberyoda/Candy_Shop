@@ -49,4 +49,17 @@ public class ApiUsersController : ControllerBase {
 
     return Results.Created($"/api/users/{user.username}", new UserDTO(user));
   }
+  
+  // Delete: /api/users/{username}
+  [HttpDelete("{username}")]
+  public async Task<IResult> Delete(string username) {
+    var user = await context.Users.FindAsync(username);
+    if (user == null) {
+      return Results.NotFound(); 
+    }
+
+    context.Users.Remove(user);
+    await context.SaveChangesAsync();
+    return Results.NoContent(); 
+  }
 }
