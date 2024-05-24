@@ -20,10 +20,11 @@ public static class ApiClient {
     if (form is not null) {
       request.Content = FormToMultipart(form);
     }
-    
+  
     var response = await client.SendAsync(request);
     return await ParseResponse<T>(response);
   }
+
 
   private static HttpRequestMessage PrepareMessage(string url, HttpMethod method, Options? options = null) {
     var request = new HttpRequestMessage(method, url);

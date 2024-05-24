@@ -14,4 +14,13 @@ public static class UserSession {
   public static int GetUserType(ISession session) {
     return isLoggedIn(session) ? (isAdmin(session) ? (int) User.Type.Admin : (int) User.Type.User) : -1;
   }
+  public static string GetApiToken(ISession session)
+  {
+    return session.GetString("apiToken") ?? string.Empty;
+  }
+
+  public static string GetUsername(ISession session)
+  {
+    return session.GetString("username") ?? string.Empty;
+  }
 }

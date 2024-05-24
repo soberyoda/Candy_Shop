@@ -10,7 +10,13 @@ namespace Candy_Shop.API;
 
 [Route("api/users/")]
 [ApiAuthorized(Models.User.Type.Admin)]
-public class ApiUsersController(ApplicationDBContext context) : ControllerBase {
+public class ApiUsersController : ControllerBase {
+  private readonly ApplicationDBContext context;
+
+  public ApiUsersController(ApplicationDBContext context) {
+    this.context = context;
+  }
+
   // GET: /api/users/
   [HttpGet]
   public async Task<IResult> Get() {
@@ -28,10 +34,13 @@ public class ApiUsersController(ApplicationDBContext context) : ControllerBase {
 
     string username = form["username"].ToString();
     string password = form["password"].ToString();
+    User.Type type = (User.Type)Enum.Parse(typeof(User.Type), form["type"]);
 
     User user = new() {
-      username = username, password = Crypto.ToMd5(password), apiToken = Guid.NewGuid().ToString(),
-      type = Models.User.Type.User
+      username = username, 
+      password = Crypto.ToMd5(password), 
+      apiToken = Guid.NewGuid().ToString(),
+      type = type
     };
     
     context.Users.Add(user);

@@ -1,35 +1,59 @@
 ﻿@{
-  ViewData["Title"] = "Show users";
+ViewData["Title"] = "Show users";
 }
 @model IEnumerable<UserDTO>?;
 
 <div class="text-center">
   <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Username</th>
-        <th scope="col">Type</th>
-        <th scope="col">Api Key</th>
-        <th scope="col">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      
-      @if (Model is not null) {
-        foreach (var user in Model) {
-          <tr>
-            <td>@user.username</td>
-            <td>@user.type.ToString()</td>
-            <td>@user.apiToken</td>
-            <td></td>
-          </tr>
-        }
-      } else {
-        <tr>
-        <td colspan="4">No data to show</td>
-        </tr>
-      }
-      
-      </tbody>
-    </table>
+    <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Type</th>
+      <th scope="col">Api Key</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @if (Model is not null) {
+    foreach (var user in Model) {
+    <tr>
+      <td>@user.username</td>
+      <td>@user.type.ToString()</td>
+      <td>@user.apiToken</td>
+      <td>
+        <form method="post" asp-action="DeleteUser" asp-controller="Admin" style="display:inline;">
+          <input type="hidden" name="username" value="@user.username" />
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+    }
+    } else {
+    <tr>
+      <td colspan="4">No data to show</td>
+    </tr>
+    }
+
+    </tbody>
+  </table>
+  <h2>Add New User</h2>
+  <form method="POST" asp-action="AddUser">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="form-group">
+      <label for="type">Type</label>
+      <select class="form-control" id="type" name="type">
+        <option value="1">User</option>
+        <option value="2">Admin</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add User</button>
+  </form>
 </div>

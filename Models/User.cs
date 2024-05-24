@@ -29,6 +29,9 @@ public class UserDTO : IUserDTO {
 
   public User.Type type { get; set; } = User.Type.User;
   
+  [JsonIgnore]
+  public string password { get; set; }
+  
   [JsonConstructor]
   public UserDTO() {}
 
