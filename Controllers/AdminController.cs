@@ -3,6 +3,7 @@ using Candy_Shop.Data;
 using Candy_Shop.Models;
 using Candy_Shop.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Candy_Shop.Controllers;
 
@@ -91,9 +92,7 @@ public class AdminController : Controller {
     await _context.SaveChangesAsync();
     TempData["success"] = "Chocolate added successfully.";
     return RedirectToAction("Index", "Czekoladki");
-  }
-
-
+  } 
   private static bool ValidateUserInfo(string username, string password) {
     return username.Length >= 3 && password.Length >= 3;
   }
