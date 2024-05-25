@@ -10,7 +10,7 @@ public class ApplicationDBContext : DbContext
   public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
   public DbSet<Czekoladka> Czekoladki { get; set; }
-  public DbSet<Zawartosc> Zawartosc { get; set; }
+  public DbSet<Zawartosc> Zawartosci { get; set; }
   public DbSet<User> Users { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
