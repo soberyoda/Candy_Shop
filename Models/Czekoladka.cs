@@ -7,7 +7,7 @@ namespace Candy_Shop.Models;
 public class Czekoladka {
   [Key]
   [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
-  public int id { get; set; }
+  public int Id { get; set; }
   
   [Required]
   [MaxLength(32)]
@@ -19,7 +19,7 @@ public class Czekoladka {
   public decimal cena { get; set; }
   public decimal masa { get; set; }
   
-  public ICollection<Zawartosc> zawartosci { get; set; }
+  // public ICollection<Zawartosc> zawartosci { get; set; }
   
   public enum Czekolada {
     [Description("mleczna")]

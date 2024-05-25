@@ -5,13 +5,16 @@ using User = Candy_Shop.Models.User;
 
 namespace Candy_Shop.Data;
 
-public class ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : DbContext(options) {
+public class ApplicationDBContext : DbContext
+{
+  public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
+
   public DbSet<Czekoladka> Czekoladki { get; set; }
   public DbSet<Zawartosc> Zawartosc { get; set; }
-
   public DbSet<User> Users { get; set; }
 
-  protected override void OnModelCreating(ModelBuilder modelBuilder) {
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
     base.OnModelCreating(modelBuilder);
 
     modelBuilder
@@ -27,8 +30,9 @@ public class ApplicationDBContext(DbContextOptions<ApplicationDBContext> options
     modelBuilder
       .Entity<Czekoladka>()
       .HasData(
-        new Czekoladka {
-          id = 1,
+        new Czekoladka
+        {
+          Id = 1,
           nazwa = "Testowa",
           czekolada = Czekoladka.Czekolada.Mleczna,
           orzechy = Czekoladka.Orzechy.laskowe,
@@ -36,8 +40,9 @@ public class ApplicationDBContext(DbContextOptions<ApplicationDBContext> options
           cena = 15.32m,
           opis = "Testowa czekoladka"
         },
-        new Czekoladka {
-          id = 2,
+        new Czekoladka
+        {
+          Id = 2,
           nazwa = "Testowa 2",
           czekolada = Czekoladka.Czekolada.Gorzka,
           masa = 0.53m,
@@ -49,7 +54,8 @@ public class ApplicationDBContext(DbContextOptions<ApplicationDBContext> options
     modelBuilder
       .Entity<User>()
       .HasData(
-        new User {
+        new User
+        {
           username = "admin",
           password = Crypto.ToMd5("admin"),
           apiToken = Crypto.SeededGuid(123),
@@ -58,3 +64,4 @@ public class ApplicationDBContext(DbContextOptions<ApplicationDBContext> options
       );
   }
 }
+

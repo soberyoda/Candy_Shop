@@ -1,4 +1,5 @@
 ﻿using Candy_Shop.Attributes;
+using Candy_Shop.Data;
 using Candy_Shop.Models;
 using Candy_Shop.Utilities;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace Candy_Shop.Controllers;
 
 public class AdminController : Controller {
+  private readonly ApplicationDBContext _context;
+
+  public AdminController(ApplicationDBContext context) {
+    _context = context; 
+  }
+
   [Authorized(Models.User.Type.Admin)]
   public async Task<IActionResult> ShowUsers() {
     var users = await ApiClient.Get<IEnumerable<UserDTO>>(
@@ -58,6 +65,34 @@ public class AdminController : Controller {
 
     return RedirectToAction("ShowUsers");
   }
+  [HttpGet]
+  [Authorized(Models.User.Type.Admin)]
+  public IActionResult AddChocolate()
+  {
+    return View();
+  }
+
+  [HttpPost]
+  [Authorized(Models.User.Type.Admin)]
+  public async Task<IActionResult> AddChocolate([FromForm] Czekoladka czekoladka)
+  {
+    if (!ModelState.IsValid)
+    {
+      var errors = ModelState.Values.SelectMany(v => v.Errors);
+      foreach (var error in errors)
+      {
+        Console.WriteLine(error.ErrorMessage);
+      }
+      TempData["error"] = "Invalid chocolate information.";
+      return View(czekoladka);
+    }
+
+    _context.Czekoladki.Add(czekoladka);
+    await _context.SaveChangesAsync();
+    TempData["success"] = "Chocolate added successfully.";
+    return RedirectToAction("Index", "Czekoladki");
+  }
+
 
   private static bool ValidateUserInfo(string username, string password) {
     return username.Length >= 3 && password.Length >= 3;
