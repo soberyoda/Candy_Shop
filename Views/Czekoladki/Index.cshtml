@@ -39,7 +39,7 @@ ViewData["Title"] = "Czekoladki";
         @if (UserSession.isAdmin(Context.Session)) {
           <td>
             <a asp-action="EditChocolate" asp-controller="Admin" asp-route-id="@czekoladka.id" class="btn btn-primary">Edit</a>
-            <form asp-action="DeleteChocolate" method="post" style="display:inline;">
+            <form asp-action="DeleteChocolate" asp-controller="Admin" method="post" style="display:inline;">
               <input type="hidden" name="id" value="@czekoladka.id"/>
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>

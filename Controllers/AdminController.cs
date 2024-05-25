@@ -152,6 +152,24 @@ namespace Candy_Shop.Controllers
           }
           return RedirectToAction("Index", "Czekoladki");
         }
+        
+        [HttpPost]
+        [Authorized(Models.User.Type.Admin)]
+        public async Task<IActionResult> DeleteChocolate(int id)
+        {
+          var czekoladka = await _context.Czekoladki.FindAsync(id);
+          if (czekoladka == null)
+          {
+            TempData["error"] = "Chocolate not found.";
+            return RedirectToAction("Index", "Czekoladki");
+          }
+
+          _context.Czekoladki.Remove(czekoladka);
+          await _context.SaveChangesAsync();
+          TempData["success"] = "Chocolate deleted successfully.";
+          return RedirectToAction("Index", "Czekoladki");
+        }
+
         private bool CzekoladkaExists(int id)
         {
           return _context.Czekoladki.Any(e => e.id == id);
