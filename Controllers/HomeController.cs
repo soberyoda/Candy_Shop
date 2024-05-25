@@ -1,16 +1,16 @@
 using System.Diagnostics;
 using Candy_Shop.Attributes;
+using Candy_Shop.Data;
 using Microsoft.AspNetCore.Mvc;
 using Candy_Shop.Models;
 
 namespace Candy_Shop.Controllers;
 
 [KeepMessages]
-public class HomeController : Controller {
+public class HomeController : Controller { 
   public IActionResult Index() {
     return View();
   }
-
   public IActionResult Privacy() {
     return View();
   }

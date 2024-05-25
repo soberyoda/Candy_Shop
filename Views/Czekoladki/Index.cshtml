@@ -49,6 +49,29 @@ ViewData["Title"] = "Czekoladki";
     }
     </tbody>
   </table>
+  <!-- Dropdown for sorting -->
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Sort by
+    </button>
+    <div class="dropdown-menu" aria-labelledby="sortDropdown">
+      <a class="dropdown-item" asp-action="SortByName" asp-controller="Czekoladki">Name</a>
+      <a class="dropdown-item" asp-action="SortByPrice" asp-controller="Czekoladki">Price</a>
+    </div>
+  </div>
+
+  <!-- Dropdown for filtering -->
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Filter by
+    </button>
+    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+      <a class="dropdown-item" asp-action="Hazelnut" asp-controller="Czekoladki">Hazelnut</a>
+      <a class="dropdown-item" asp-action="Almonds" asp-controller="Czekoladki">Almonds</a>
+      <a class="dropdown-item" asp-action="MilkChocolate" asp-controller="Czekoladki">Milk Chocolate</a>
+      <a class="dropdown-item" asp-action="DarkChocolate" asp-controller="Czekoladki">Dark Chocolate</a>
+    </div>
+  </div>
   @if (UserSession.isAdmin(Context.Session)) {
     <a asp-action="AddChocolate" asp-controller="Admin" class="btn btn-success">Add Chocolate</a>
   }
