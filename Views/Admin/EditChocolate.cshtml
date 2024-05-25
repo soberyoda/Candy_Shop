@@ -14,13 +14,19 @@
     <span asp-validation-for="nazwa" class="text-danger"></span>
   </div>
   <div class="form-group">
-    <label asp-for="czekolada" class="control-label"></label>
-    <input asp-for="czekolada" class="form-control" />
+    <label asp-for="czekolada"></label>
+    <select asp-for="czekolada" class="form-control">
+      <option value="1">Mleczna</option>
+      <option value="2">Gorzka</option>
+    </select>
     <span asp-validation-for="czekolada" class="text-danger"></span>
   </div>
   <div class="form-group">
-    <label asp-for="orzechy" class="control-label"></label>
-    <input asp-for="orzechy" class="form-control" />
+    <label asp-for="orzechy"></label>
+    <select asp-for="orzechy" class="form-control">
+      <option value="1">laskowe</option>
+      <option value="2">migdały</option>
+    </select>
     <span asp-validation-for="orzechy" class="text-danger"></span>
   </div>
   <div class="form-group">

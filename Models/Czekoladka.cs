@@ -25,9 +25,10 @@ public class Czekoladka {
   [Required]
   [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive mass")]
   public decimal masa { get; set; }
-
+  
+  [Required]
   public string opis { get; set; }
-
+  
   public enum Czekolada {
     [Description("mleczna")]
     Mleczna = 1,
