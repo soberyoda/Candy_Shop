@@ -32,7 +32,7 @@ public class ApplicationDBContext : DbContext
       .HasData(
         new Czekoladka
         {
-          Id = 1,
+          id = 1,
           nazwa = "Testowa",
           czekolada = Czekoladka.Czekolada.Mleczna,
           orzechy = Czekoladka.Orzechy.laskowe,
@@ -42,7 +42,7 @@ public class ApplicationDBContext : DbContext
         },
         new Czekoladka
         {
-          Id = 2,
+          id = 2,
           nazwa = "Testowa 2",
           czekolada = Czekoladka.Czekolada.Gorzka,
           masa = 0.53m,

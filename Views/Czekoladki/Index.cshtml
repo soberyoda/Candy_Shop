@@ -1,35 +1,55 @@
-﻿@{
-  ViewData["Title"] = "Czekoladki";
+﻿@using Candy_Shop.Utilities
+@model IEnumerable<Candy_Shop.Models.Czekoladka>
+
+@{
+ViewData["Title"] = "Czekoladki";
 }
-@model IEnumerable<Candy_Shop.Models.Czekoladka>;
 
 <div class="text-center">
   <table class="table">
     <thead>
     <tr>
+      @if (UserSession.isAdmin(Context.Session)) {
+        <th scope="col">Id</th>
+      }
       <th scope="col">Nazwa</th>
       <th scope="col">Czekolada</th>
       <th scope="col">Orzechy</th>
       <th scope="col">Masa</th>
       <th scope="col">Cena</th>
       <th scope="col">Opis</th>
+      @if (UserSession.isAdmin(Context.Session)) {
+        <th scope="col">Actions</th>
+      }
     </tr>
     </thead>
     <tbody>
-    
-    @foreach (var czekoladka in Model) {
+    @foreach (var czekoladka in Model)
+    {
       <tr>
+        @if (UserSession.isAdmin(Context.Session)) {
+          <td>@czekoladka.id</td>
+        }
         <td>@czekoladka.nazwa</td>
         <td>@czekoladka.czekolada</td>
         <td>@czekoladka.orzechy</td>
         <td>@czekoladka.masa</td>
         <td>@czekoladka.cena</td>
         <td>@czekoladka.opis</td>
+        @if (UserSession.isAdmin(Context.Session)) {
+          <td>
+            <a asp-action="EditChocolate" asp-controller="Admin" asp-route-id="@czekoladka.id" class="btn btn-primary">Edit</a>
+            <form asp-action="DeleteChocolate" method="post" style="display:inline;">
+              <input type="hidden" name="id" value="@czekoladka.id"/>
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+        }
       </tr>
     }
-    
     </tbody>
   </table>
-  <a asp-action="AddChocolate" asp-controller="Admin">Add Chocolate</a>
-
+  @if (UserSession.isAdmin(Context.Session)) {
+    <a asp-action="AddChocolate" asp-controller="Admin" class="btn btn-success">Add Chocolate</a>
+  }
 </div>

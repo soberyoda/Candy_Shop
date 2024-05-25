@@ -27,7 +27,7 @@ public class ApiCzekoladkiController : ControllerBase {
       _context.Czekoladki.Add(czekoladka);
       await _context.SaveChangesAsync();
 
-      return CreatedAtAction(nameof(Get), new { id = czekoladka.Id }, czekoladka);
+      return CreatedAtAction(nameof(Get), new { id = czekoladka.id }, czekoladka);
     }
 
     return BadRequest(ModelState);

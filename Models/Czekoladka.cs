@@ -7,7 +7,7 @@ namespace Candy_Shop.Models;
 public class Czekoladka {
   [Key]
   [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-  public int Id { get; set; }
+  public int id { get; set; }
 
   [Required]
   [MaxLength(32)]

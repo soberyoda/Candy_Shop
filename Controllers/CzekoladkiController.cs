@@ -26,7 +26,7 @@ public class CzekoladkiController : Controller {
       _context.Czekoladki.Add(czekoladka);
       await _context.SaveChangesAsync();
 
-      return CreatedAtAction(nameof(Index), new { id = czekoladka.Id }, czekoladka);
+      return CreatedAtAction(nameof(Index), new { id = czekoladka.id }, czekoladka);
     }
 
     return BadRequest(ModelState);

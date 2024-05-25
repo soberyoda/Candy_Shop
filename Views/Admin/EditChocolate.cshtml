@@ -1,0 +1,42 @@
+﻿@model Candy_Shop.Models.Czekoladka
+
+@{
+  ViewData["Title"] = "Edit Chocolate";
+}
+
+<h2>Edit Chocolate</h2>
+
+<form asp-action="EditChocolate" method="post">
+  <input type="hidden" asp-for="id" />
+  <div class="form-group">
+    <label asp-for="nazwa" class="control-label"></label>
+    <input asp-for="nazwa" class="form-control" />
+    <span asp-validation-for="nazwa" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="czekolada" class="control-label"></label>
+    <input asp-for="czekolada" class="form-control" />
+    <span asp-validation-for="czekolada" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="orzechy" class="control-label"></label>
+    <input asp-for="orzechy" class="form-control" />
+    <span asp-validation-for="orzechy" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="masa" class="control-label"></label>
+    <input asp-for="masa" class="form-control" />
+    <span asp-validation-for="masa" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="cena" class="control-label"></label>
+    <input asp-for="cena" class="form-control" />
+    <span asp-validation-for="cena" class="text-danger"></span>
+  </div>
+  <div class="form-group">
+    <label asp-for="opis" class="control-label"></label>
+    <textarea asp-for="opis" class="form-control"></textarea>
+    <span asp-validation-for="opis" class="text-danger"></span>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
