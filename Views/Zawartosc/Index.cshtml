@@ -40,6 +40,11 @@ ViewData["Title"] = "Index";
     <td>
       @Html.DisplayFor(modelItem => item.Czekoladka.nazwa)
     </td>
+    <td>
+      <form asp-action="Delete" asp-route-id="@item.id" method="post">
+        <input type="submit" value="Usuń" class="btn btn-danger" />
+      </form>
+    </td>
   </tr>
   }
   </tbody>

@@ -5,22 +5,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Candy_Shop.Controllers
-{
-  public class ZawartoscController : Controller
-  {
+namespace Candy_Shop.Controllers {
+  public class ZawartoscController : Controller {
     private readonly ApplicationDBContext _context;
     private readonly ILogger<ZawartoscController> _logger;
 
-    public ZawartoscController(ApplicationDBContext context, ILogger<ZawartoscController> logger)
-    {
+    public ZawartoscController(ApplicationDBContext context, ILogger<ZawartoscController> logger) {
       _context = context;
       _logger = logger;
     }
 
     // GET: Zawartosc/Create
-    public IActionResult Create()
-    {
+    public IActionResult Create() {
       ViewData["Czekoladki"] = new SelectList(_context.Czekoladki, "id", "nazwa");
       return View();
     }
@@ -29,15 +25,14 @@ namespace Candy_Shop.Controllers
     // POST: Zawartosc/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("id,sztuk,id_czekoladki")] Zawartosc zawartosc)
-    {
+    public async Task<IActionResult> Create([Bind("id,sztuk,id_czekoladki")] Zawartosc zawartosc) {
       _logger.LogInformation("Create action triggered.");
-      if (ModelState.IsValid)
-      {
+      if (ModelState.IsValid) {
         _context.Add(zawartosc);
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
       }
+
       _logger.LogInformation($"Received zawartosc: {zawartosc}");
 
       ViewData["Czekoladki"] = new SelectList(_context.Czekoladki, "id", "nazwa", zawartosc.id_czekoladki);
@@ -46,10 +41,34 @@ namespace Candy_Shop.Controllers
 
 
     // GET: Zawartosc/Index
-    public async Task<IActionResult> Index()
-    {
+    public async Task<IActionResult> Index() {
       var candyShopContext = _context.Zawartosc.Include(z => z.Czekoladka);
       return View(await candyShopContext.ToListAsync());
+    }
+
+    // GET: Zawartosc/Delete/5
+    public async Task<IActionResult> Delete(int? id) {
+      if (id == null) {
+        return NotFound();
+      }
+
+      var zawartosc = await _context.Zawartosc
+        .FirstOrDefaultAsync(m => m.id == id);
+      if (zawartosc == null) {
+        return NotFound();
+      }
+
+      return View(zawartosc);
+    }
+
+    // POST: Zawartosc/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id) {
+      var zawartosc = await _context.Zawartosc.FindAsync(id);
+      _context.Zawartosc.Remove(zawartosc);
+      await _context.SaveChangesAsync();
+      return RedirectToAction(nameof(Index));
     }
   }
 }
