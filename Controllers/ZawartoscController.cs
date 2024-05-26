@@ -70,5 +70,60 @@ namespace Candy_Shop.Controllers {
       await _context.SaveChangesAsync();
       return RedirectToAction(nameof(Index));
     }
+    // GET: Zawartosc/Edit/5
+    public async Task<IActionResult> Edit(int? id)
+    {
+      if (id == null)
+      {
+        return NotFound();
+      }
+
+      var zawartosc = await _context.Zawartosc.FindAsync(id);
+      if (zawartosc == null)
+      {
+        return NotFound();
+      }
+
+      ViewData["Czekoladki"] = new SelectList(_context.Czekoladki, "id", "nazwa", zawartosc.id_czekoladki);
+      return View(zawartosc);
+    }
+
+// POST: Zawartosc/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("id,sztuk,id_czekoladki")] Zawartosc zawartosc)
+    {
+      if (id != zawartosc.id)
+      {
+        return NotFound();
+      }
+
+      if (ModelState.IsValid)
+      {
+        try
+        {
+          _context.Update(zawartosc);
+          await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+          if (!ZawartoscExists(zawartosc.id))
+          {
+            return NotFound();
+          }
+          else
+          {
+            throw;
+          }
+        }
+        return RedirectToAction(nameof(Index));
+      }
+      ViewData["Czekoladki"] = new SelectList(_context.Czekoladki, "id", "nazwa", zawartosc.id_czekoladki);
+      return View(zawartosc);
+    }
+    private bool ZawartoscExists(int id)
+    {
+      return _context.Zawartosc.Any(e => e.id == id);
+    }
   }
 }

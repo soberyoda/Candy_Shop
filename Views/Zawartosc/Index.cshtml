@@ -22,6 +22,7 @@ ViewData["Title"] = "Index";
       @Html.DisplayNameFor(model => model.FirstOrDefault().Czekoladka.nazwa)
     </th>
     <th></th>
+    <th></th> <!-- Add this column for the Edit link -->
   </tr>
   </thead>
   <tbody>
@@ -45,11 +46,14 @@ ViewData["Title"] = "Index";
         <input type="submit" value="Usuń" class="btn btn-danger" />
       </form>
     </td>
+    <td>
+      <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary">Edit</a>
+    </td>
   </tr>
   }
   </tbody>
 </table>
 
 <div>
-  <a asp-action="Create" class="btn btn-primary">Create New</a>
+  <a asp-action="Create" class="btn btn-primary">Add Item</a>
 </div>
