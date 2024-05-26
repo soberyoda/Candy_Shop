@@ -6,19 +6,22 @@ namespace Candy_Shop.Models
   public class Zawartosc
   {
     public int id { get; set; }
+
     [Required]
     [Range(1, int.MaxValue, ErrorMessage = "Please enter a valid number of pieces.")]
     public int sztuk { get; set; }
+
     [Required]
     [ForeignKey("Czekoladka")]
     [Display(Name = "Czekoladka")]
     public int id_czekoladki { get; set; }
+
     public Czekoladka? Czekoladka { get; set; }
-    
+
+    [Required]
     [ForeignKey("User")]
     public string username { get; set; }
-        
-    public User User { get; set; }
 
+    public User? User { get; set; }
   }
 }
