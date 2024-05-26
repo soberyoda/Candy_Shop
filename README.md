@@ -40,3 +40,6 @@ Everyone can preview available chocolates and filter them.
 
 ## Database
 <img width=auto src="./assets/Database.png" alt="Database" title="Database"/>
+
+## Application 
+[Screenshots from the application](https://github.com/soberyoda/Candy_Shop/tree/main/assets)
