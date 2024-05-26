@@ -33,9 +33,10 @@ Everyone can preview available chocolates and filter them.
 ```
 
 </li>
+</ul>
 
 3. After opening the project and downloading the required tools and packages, run the following command in the terminal:
-<code>dotnet ef database update</code>
+   <code>dotnet ef database update</code>
 
-
-</ul>
+## Database
+<img width=auto src="./assets/Database.png" alt="Database" title="Database"/>
