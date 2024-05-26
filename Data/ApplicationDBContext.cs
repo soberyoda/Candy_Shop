@@ -66,6 +66,10 @@ public class ApplicationDBContext : DbContext
       .HasOne(z => z.Czekoladka)
       .WithMany()
       .HasForeignKey(z => z.id_czekoladki);
+    modelBuilder.Entity<Zawartosc>()
+      .HasOne(z => z.User)
+      .WithMany()
+      .HasForeignKey(z => z.username);
   }
 }
 

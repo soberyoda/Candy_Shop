@@ -14,6 +14,11 @@ namespace Candy_Shop.Models
     [Display(Name = "Czekoladka")]
     public int id_czekoladki { get; set; }
     public Czekoladka? Czekoladka { get; set; }
+    
+    [ForeignKey("User")]
+    public string username { get; set; }
+        
+    public User User { get; set; }
 
   }
 }
