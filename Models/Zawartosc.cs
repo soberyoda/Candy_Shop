@@ -13,6 +13,7 @@ namespace Candy_Shop.Models
     [ForeignKey("Czekoladka")]
     [Display(Name = "Czekoladka")]
     public int id_czekoladki { get; set; }
-    public Czekoladka Czekoladka { get; set; }
+    public Czekoladka? Czekoladka { get; set; }
+
   }
 }

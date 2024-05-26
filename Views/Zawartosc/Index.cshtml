@@ -1,0 +1,50 @@
+﻿@model List<Candy_Shop.Models.Zawartosc>
+
+@{
+ViewData["Title"] = "Index";
+}
+
+<h1>Zawartosc Index</h1>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>
+      @Html.DisplayNameFor(model => model.FirstOrDefault().id)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.FirstOrDefault().sztuk)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.FirstOrDefault().id_czekoladki)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.FirstOrDefault().Czekoladka.nazwa)
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  @foreach (var item in Model)
+  {
+  <tr>
+    <td>
+      @Html.DisplayFor(modelItem => item.id)
+    </td>
+    <td>
+      @Html.DisplayFor(modelItem => item.sztuk)
+    </td>
+    <td>
+      @Html.DisplayFor(modelItem => item.id_czekoladki)
+    </td>
+    <td>
+      @Html.DisplayFor(modelItem => item.Czekoladka.nazwa)
+    </td>
+  </tr>
+  }
+  </tbody>
+</table>
+
+<div>
+  <a asp-action="Create" class="btn btn-primary">Create New</a>
+</div>

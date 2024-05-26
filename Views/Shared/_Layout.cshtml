@@ -35,11 +35,10 @@
                 <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Admin</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ShowUsers">Users</a></li>
-                  <li><a class="dropdown-item" asp-area="" asp-controller="Zawartosci" asp-action="Details">Zawartosc</a></li>
                 </ul>
               </li>
             } 
-            
+            <li><a class="dropdown-item" asp-area="" asp-controller="Zawartosc" asp-action="Index">Zawartosc</a></li>
             <li class="nav-item">
               <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a>
             </li>

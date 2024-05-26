@@ -10,7 +10,7 @@ public class ApplicationDBContext : DbContext
   public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
 
   public DbSet<Czekoladka> Czekoladki { get; set; }
-  public DbSet<Zawartosc> Zawartosci { get; set; }
+  public DbSet<Zawartosc> Zawartosc { get; set; }
   public DbSet<User> Users { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,6 +62,10 @@ public class ApplicationDBContext : DbContext
           type = User.Type.Admin
         }
       );
+    modelBuilder.Entity<Zawartosc>()
+      .HasOne(z => z.Czekoladka)
+      .WithMany()
+      .HasForeignKey(z => z.id_czekoladki);
   }
 }
 
