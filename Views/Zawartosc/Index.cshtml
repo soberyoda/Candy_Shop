@@ -6,47 +6,38 @@ ViewData["Title"] = "Index";
 
 <h1>Zawartosc Index</h1>
 
+@if (Model.Count > 0)
+{
 <table class="table">
+  <!-- Table headers -->
   <thead>
   <tr>
-    <th>
-      @Html.DisplayNameFor(model => model.FirstOrDefault().id)
-    </th>
-    <th>
-      @Html.DisplayNameFor(model => model.FirstOrDefault().sztuk)
-    </th>
-    <th>
-      @Html.DisplayNameFor(model => model.FirstOrDefault().id_czekoladki)
-    </th>
-    <th>
-      @Html.DisplayNameFor(model => model.FirstOrDefault().Czekoladka.nazwa)
-    </th>
+    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().id)</th>
+    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().sztuk)</th>
+    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().id_czekoladki)</th>
+    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Czekoladka.nazwa)</th>
     <th></th>
-    <th></th> <!-- Add this column for the Edit link -->
+    <th></th>
   </tr>
   </thead>
+  <!-- Table body -->
   <tbody>
   @foreach (var item in Model)
   {
   <tr>
+    <!-- Table data -->
+    <td>@Html.DisplayFor(modelItem => item.id)</td>
+    <td>@Html.DisplayFor(modelItem => item.sztuk)</td>
+    <td>@Html.DisplayFor(modelItem => item.id_czekoladki)</td>
+    <td>@Html.DisplayFor(modelItem => item.Czekoladka.nazwa)</td>
     <td>
-      @Html.DisplayFor(modelItem => item.id)
-    </td>
-    <td>
-      @Html.DisplayFor(modelItem => item.sztuk)
-    </td>
-    <td>
-      @Html.DisplayFor(modelItem => item.id_czekoladki)
-    </td>
-    <td>
-      @Html.DisplayFor(modelItem => item.Czekoladka.nazwa)
-    </td>
-    <td>
+      <!-- Delete form -->
       <form asp-action="Delete" asp-route-id="@item.id" method="post">
         <input type="submit" value="Usuń" class="btn btn-danger" />
       </form>
     </td>
     <td>
+      <!-- Edit link -->
       <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary">Edit</a>
     </td>
   </tr>
@@ -54,6 +45,21 @@ ViewData["Title"] = "Index";
   </tbody>
 </table>
 
+<!-- Order button -->
+<div>
+  <form asp-action="Order" method="post">
+    <button type="submit" class="btn btn-success">Zamów</button>
+  </form>
+</div>
+}
+else
+{
+<div class="alert alert-info" role="alert">
+  @ViewData["EmptyMessage"]
+</div>
+}
+
+<!-- Add item button -->
 <div>
   <a asp-action="Create" class="btn btn-primary">Add Item</a>
 </div>

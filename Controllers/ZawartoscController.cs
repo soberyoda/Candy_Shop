@@ -41,10 +41,18 @@ namespace Candy_Shop.Controllers {
 
 
     // GET: Zawartosc/Index
-    public async Task<IActionResult> Index() {
-      var candyShopContext = _context.Zawartosc.Include(z => z.Czekoladka);
-      return View(await candyShopContext.ToListAsync());
+    public async Task<IActionResult> Index()
+    {
+      var zawartoscItems = await _context.Zawartosc.Include(z => z.Czekoladka).ToListAsync();
+    
+      if (zawartoscItems.Count == 0)
+      {
+        ViewData["EmptyMessage"] = "Dodaj produkty";
+      }
+
+      return View(zawartoscItems);
     }
+
 
     // GET: Zawartosc/Delete/5
     public async Task<IActionResult> Delete(int? id) {
@@ -125,5 +133,29 @@ namespace Candy_Shop.Controllers {
     {
       return _context.Zawartosc.Any(e => e.id == id);
     }
+    // POST: Zawartosc/Order
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Order()
+    {
+      try
+      {
+        // Clear the Zawartosc table
+        _context.Zawartosc.RemoveRange(_context.Zawartosc);
+        await _context.SaveChangesAsync();
+        // Set a message indicating the order has been placed
+        TempData["OrderMessage"] = "Zamówienie zostało złożone";
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError($"An error occurred while placing the order: {ex.Message}");
+        TempData["ErrorMessage"] = "Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie.";
+      }
+
+      return RedirectToAction(nameof(Index));
+    }
+
+
   }
+  
 }
