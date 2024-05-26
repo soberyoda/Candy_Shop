@@ -4,44 +4,47 @@
 ViewData["Title"] = "Add Chocolate";
 }
 
-<h2>Add Chocolate</h2>
+<div class="text-center">
+  <h2 class="bg-dark text-white p-2">Add Chocolate</h2>
 
-<form asp-action="AddChocolate" method="post">
-  <div class="form-group">
-    <label asp-for="nazwa"></label>
-    <input asp-for="nazwa" class="form-control" />
-    <span asp-validation-for="nazwa" class="text-danger"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="czekolada"></label>
-    <select asp-for="czekolada" class="form-control">
-      <option value="1">Mleczna</option>
-      <option value="2">Gorzka</option>
-    </select>
-    <span asp-validation-for="czekolada" class="text-danger"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="orzechy"></label>
-    <select asp-for="orzechy" class="form-control">
-      <option value="1">laskowe</option>
-      <option value="2">migdały</option>
-    </select>
-    <span asp-validation-for="orzechy" class="text-danger"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="masa"></label>
-    <input asp-for="masa" class="form-control" />
-    <span asp-validation-for="masa" class="text-danger"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="cena"></label>
-    <input asp-for="cena" class="form-control" />
-    <span asp-validation-for="cena" class="text-danger"></span>
-  </div>
-  <div class="form-group">
-    <label asp-for="opis"></label>
-    <input asp-for="opis" class="form-control" />
-    <span asp-validation-for="opis" class="text-danger"></span>
-  </div>
-  <button type="submit" class="btn btn-primary">Add Chocolate</button>
-</form>
+  <form asp-action="AddChocolate" method="post" class="my-4">
+    <div class="form-group">
+      <label asp-for="nazwa" class="font-weight-bold">Chocolate Name:</label>
+      <input asp-for="nazwa" class="form-control" />
+      <span asp-validation-for="nazwa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="czekolada" class="font-weight-bold">Chocolate Type:</label>
+      <select asp-for="czekolada" class="form-control">
+        <option value="1">Milk Chocolate</option>
+        <option value="2">Dark Chocolate</option>
+      </select>
+      <span asp-validation-for="czekolada" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="orzechy" class="font-weight-bold">Nuts:</label>
+      <select asp-for="orzechy" class="form-control">
+        <option value="1">Hazelnuts</option>
+        <option value="2">Almonds</option>
+      </select>
+      <span asp-validation-for="orzechy" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="masa" class="font-weight-bold">Weight (g):</label>
+      <input asp-for="masa" class="form-control" />
+      <span asp-validation-for="masa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="cena" class="font-weight-bold">Price:</label>
+      <input asp-for="cena" class="form-control" />
+      <span asp-validation-for="cena" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="opis" class="font-weight-bold">Description:</label>
+      <input asp-for="opis" class="form-control" />
+      <span asp-validation-for="opis" class="text-danger"></span>
+    </div>
+    <div style="height: 10px;"></div>
+    <button type="submit" class="btn btn-primary">Add Chocolate</button>
+  </form>
+</div>

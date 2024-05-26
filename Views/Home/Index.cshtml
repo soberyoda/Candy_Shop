@@ -1,11 +1,12 @@
 ﻿@using Candy_Shop.Utilities
 @{
-    ViewData["Title"] = "Home Page";
+  ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
   <h1 class="display-4">Welcome</h1>
-  @if (UserSession.isAdmin(Context.Session)) {
-    <p>Candy Shop Admin</p>
+  @if (UserSession.isAdmin(Context.Session))
+  {
+    <p class="lead">Candy Shop Admin</p>
   }
 </div>

@@ -126,8 +126,13 @@ namespace Candy_Shop.Controllers
             _logger.LogWarning("Delete action: User not logged in.");
             return RedirectToAction("Login", "Auth");
           }
-
-          if (!UserSession.isAdmin(HttpContext.Session))
+          // Pobranie pierwotnego właściciela rekordu
+          var originalOwner = await _context.Zawartosc
+            .Where(z => z.id == id)
+            .Select(z => z.username)
+            .FirstOrDefaultAsync();
+          
+          if (!UserSession.isAdmin(HttpContext.Session) && originalOwner != username)
           {
             _logger.LogWarning("Delete action: User is not an admin.");
             return RedirectToAction(nameof(Index));
@@ -142,7 +147,7 @@ namespace Candy_Shop.Controllers
           return View(zawartosc);
         }
 
-// POST: Zawartosc/Delete/5
+    // POST: Zawartosc/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -153,8 +158,12 @@ namespace Candy_Shop.Controllers
             _logger.LogWarning("DeleteConfirmed action: User not logged in.");
             return RedirectToAction("Login", "Auth");
           }
-
-          if (!UserSession.isAdmin(HttpContext.Session))
+          // Pobranie pierwotnego właściciela rekordu
+          var originalOwner = await _context.Zawartosc
+            .Where(z => z.id == id)
+            .Select(z => z.username)
+            .FirstOrDefaultAsync();
+          if (!UserSession.isAdmin(HttpContext.Session) && originalOwner != username)
           {
             _logger.LogWarning("DeleteConfirmed action: User is not an admin.");
             return RedirectToAction(nameof(Index));
@@ -185,8 +194,13 @@ namespace Candy_Shop.Controllers
             _logger.LogWarning("Edit action: User not logged in.");
             return RedirectToAction("Login", "Auth");
           }
+          // Pobranie pierwotnego właściciela rekordu
+          var originalOwner = await _context.Zawartosc
+            .Where(z => z.id == id)
+            .Select(z => z.username)
+            .FirstOrDefaultAsync();
 
-          if (!UserSession.isAdmin(HttpContext.Session))
+          if (!UserSession.isAdmin(HttpContext.Session)  && originalOwner != username)
           {
             _logger.LogWarning("Edit action: User is not an admin.");
             return RedirectToAction(nameof(Index));
@@ -202,7 +216,6 @@ namespace Candy_Shop.Controllers
           return View(zawartosc);
         }
 
-        // POST: Zawartosc/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,sztuk,id_czekoladki,username")] Zawartosc zawartosc)
@@ -220,7 +233,10 @@ namespace Candy_Shop.Controllers
           }
 
           // Pobranie pierwotnego właściciela rekordu
-          var originalOwner = await _context.Zawartosc.Where(z => z.id == id).Select(z => z.username).FirstOrDefaultAsync();
+          var originalOwner = await _context.Zawartosc
+            .Where(z => z.id == id)
+            .Select(z => z.username)
+            .FirstOrDefaultAsync();
 
           // Sprawdzenie czy użytkownik jest administratorem lub właścicielem rekordu
           if (!UserSession.isAdmin(HttpContext.Session) && originalOwner != username)
@@ -233,11 +249,17 @@ namespace Candy_Shop.Controllers
           {
             try
             {
-              // Zachowanie pierwotnego właściciela rekordu
-              zawartosc.username = originalOwner;
-
-              _context.Update(zawartosc);
-              await _context.SaveChangesAsync();
+              // Sprawdzenie czy użytkownik jest administratorem lub właścicielem rekordu
+              if (UserSession.isAdmin(HttpContext.Session) || originalOwner == username)
+              {
+                _context.Update(zawartosc);
+                await _context.SaveChangesAsync();
+              }
+              else
+              {
+                _logger.LogWarning("Edit action: Unauthorized access attempted by user: {username}");
+                return Unauthorized();
+              }
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -255,6 +277,8 @@ namespace Candy_Shop.Controllers
           ViewData["Czekoladki"] = new SelectList(_context.Czekoladki, "id", "nazwa", zawartosc.id_czekoladki);
           return View(zawartosc);
         }
+
+
 
 
         private bool ZawartoscExists(int id)

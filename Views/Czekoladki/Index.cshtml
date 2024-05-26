@@ -6,49 +6,50 @@ ViewData["Title"] = "Czekoladki";
 }
 
 <div class="text-center">
-  <table class="table">
-    <thead>
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    @if (UserSession.isAdmin(Context.Session)) {
+      <th scope="col">Id</th>
+    }
+    <th scope="col">Nazwa</th>
+    <th scope="col">Czekolada</th>
+    <th scope="col">Orzechy</th>
+    <th scope="col">Masa</th>
+    <th scope="col">Cena</th>
+    <th scope="col">Opis</th>
+    @if (UserSession.isAdmin(Context.Session)) {
+      <th scope="col">Actions</th>
+    }
+  </tr>
+  </thead>
+  <tbody>
+  @foreach (var czekoladka in Model)
+  {
     <tr>
       @if (UserSession.isAdmin(Context.Session)) {
-        <th scope="col">Id</th>
+        <td>@czekoladka.id</td>
       }
-      <th scope="col">Nazwa</th>
-      <th scope="col">Czekolada</th>
-      <th scope="col">Orzechy</th>
-      <th scope="col">Masa</th>
-      <th scope="col">Cena</th>
-      <th scope="col">Opis</th>
+      <td>@czekoladka.nazwa</td>
+      <td>@czekoladka.czekolada</td>
+      <td>@czekoladka.orzechy</td>
+      <td>@czekoladka.masa</td>
+      <td>@czekoladka.cena</td>
+      <td>@czekoladka.opis</td>
       @if (UserSession.isAdmin(Context.Session)) {
-        <th scope="col">Actions</th>
+        <td>
+          <a asp-action="EditChocolate" asp-controller="Admin" asp-route-id="@czekoladka.id" class="btn btn-primary">Edit</a>
+          <form asp-action="DeleteChocolate" asp-controller="Admin" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="@czekoladka.id" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
       }
     </tr>
-    </thead>
-    <tbody>
-    @foreach (var czekoladka in Model)
-    {
-      <tr>
-        @if (UserSession.isAdmin(Context.Session)) {
-          <td>@czekoladka.id</td>
-        }
-        <td>@czekoladka.nazwa</td>
-        <td>@czekoladka.czekolada</td>
-        <td>@czekoladka.orzechy</td>
-        <td>@czekoladka.masa</td>
-        <td>@czekoladka.cena</td>
-        <td>@czekoladka.opis</td>
-        @if (UserSession.isAdmin(Context.Session)) {
-          <td>
-            <a asp-action="EditChocolate" asp-controller="Admin" asp-route-id="@czekoladka.id" class="btn btn-primary">Edit</a>
-            <form asp-action="DeleteChocolate" asp-controller="Admin" method="post" style="display:inline;">
-              <input type="hidden" name="id" value="@czekoladka.id"/>
-              <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-          </td>
-        }
-      </tr>
-    }
-    </tbody>
-  </table>
+  }
+  </tbody>
+</table>
+  <div style="height: 10px;"></div>
   <!-- Dropdown for sorting -->
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,7 +60,7 @@ ViewData["Title"] = "Czekoladki";
       <a class="dropdown-item" asp-action="SortByPrice" asp-controller="Czekoladki">Price</a>
     </div>
   </div>
-
+  <div style="height: 10px;"></div>
   <!-- Dropdown for filtering -->
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,7 +73,8 @@ ViewData["Title"] = "Czekoladki";
       <a class="dropdown-item" asp-action="DarkChocolate" asp-controller="Czekoladki">Dark Chocolate</a>
     </div>
   </div>
+  <div style="height: 10px;"></div>
   @if (UserSession.isAdmin(Context.Session)) {
-    <a asp-action="AddChocolate" asp-controller="Admin" class="btn btn-success">Add Chocolate</a>
+  <a asp-action="AddChocolate" asp-controller="Admin" class="btn btn-success">Add Chocolate</a>
   }
 </div>

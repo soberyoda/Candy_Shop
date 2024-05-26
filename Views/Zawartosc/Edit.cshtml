@@ -1,33 +1,33 @@
 ﻿@using Candy_Shop.Utilities
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Candy_Shop.Models.Zawartosc
 
 @{
-  ViewData["Title"] = "Edit";
+ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Zawartosc</h1>
+<h1 class="bg-dark text-white p-2">EDIT SHOPPING CART</h1>
 
 <form asp-action="Edit">
   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
   <input type="hidden" asp-for="id" />
   <div class="form-group">
-    <label asp-for="sztuk" class="control-label"></label>
+    <label asp-for="sztuk" class="control-label">The amount of chocolates</label>
     <input asp-for="sztuk" class="form-control" />
     <span asp-validation-for="sztuk" class="text-danger"></span>
   </div>
   <div class="form-group">
-    <label asp-for="id_czekoladki" class="control-label"></label>
+    <label asp-for="id_czekoladki" class="control-label">Chocolate name</label>
     <select asp-for="id_czekoladki" class="form-control" asp-items="ViewBag.Czekoladki"></select>
   </div>
   <div class="form-group">
     <input type="hidden" asp-for="username" value="@UserSession.GetUsername(Context.Session)" />
   </div>
+  <div style="height: 10px;"></div>
   <div class="form-group">
     <input type="submit" value="Save" class="btn btn-primary" />
   </div>
 </form>
-
+<div style="height: 10px;"></div>
 <div>
   <a asp-action="Index">Back to List</a>
 </div>
