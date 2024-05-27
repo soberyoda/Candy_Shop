@@ -296,8 +296,15 @@ namespace Candy_Shop.Controllers
             try
             {
                 // Clear the Zawartosc table for the specific user
-                var zawartoscItems = _context.Zawartosc.Where(z => z.username == username);
-                _context.Zawartosc.RemoveRange(zawartoscItems);
+                var zawartoscItems = await _context.Zawartosc.Where(z => z.username == username).ToListAsync();
+                var order = new Order
+                {
+                  username = username,
+                  id_zawartosci = zawartoscItems[0].id
+                };
+
+                _context.Orders.Add(order);
+                // _context.Zawartosc.RemoveRange(zawartoscItems);
                 await _context.SaveChangesAsync();
 
                 // Set a message indicating the order has been placed
@@ -309,7 +316,8 @@ namespace Candy_Shop.Controllers
                 TempData["ErrorMessage"] = "Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie.";
             }
 
-            return RedirectToAction(nameof(Index));
+            TempData["success"] = "Order placed";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

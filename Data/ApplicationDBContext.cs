@@ -12,6 +12,7 @@ public class ApplicationDBContext : DbContext
   public DbSet<Czekoladka> Czekoladki { get; set; }
   public DbSet<Zawartosc> Zawartosc { get; set; }
   public DbSet<User> Users { get; set; }
+  public DbSet<Order> Orders { get; set; }
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

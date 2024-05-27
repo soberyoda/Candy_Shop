@@ -1,0 +1,51 @@
+@model IEnumerable<Candy_Shop.Models.Order>
+
+@{
+  ViewData["Title"] = "Order Index";
+}
+
+<h2>Order Index</h2>
+
+@if (ViewData["EmptyMessage"] != null)
+{
+  <p>@ViewData["EmptyMessage"]</p>
+}
+else
+{
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Username</th>
+      <th>Czekoladka</th>
+      <th>Sztuk</th>
+      <th></th>
+
+      @{
+      ViewData["Title"] = "Order Index";
+      }
+      
+      @if (ViewData["EmptyMessage"] != null)
+      {
+      <p>@ViewData["EmptyMessage"]</p>
+      }
+      else
+      {
+        <tbody>
+        @foreach (var order in Model)
+        {
+        <tr>
+          <td>@order.id</td>
+          <td>@order.username</td>
+          <td>@order.Zawartosc.Czekoladka.nazwa</td>
+          <td>@order.Zawartosc.sztuk</td>
+        </tr>
+        }
+        </tbody>
+     
+      }
+
+    </tr>
+    </thead>
+  </table>
+}

@@ -1,7 +1,7 @@
 ﻿@using Candy_Shop.Utilities
 @{
-  bool isLoggedIn = UserSession.isLoggedIn(Context.Session);
-  bool isAdmin = UserSession.isAdmin(Context.Session);
+bool isLoggedIn = UserSession.isLoggedIn(Context.Session);
+bool isAdmin = UserSession.isAdmin(Context.Session);
 }
 
 <!DOCTYPE html>
@@ -28,28 +28,31 @@
           <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Czekoladki" asp-action="Index">Chocolates</a>
           </li>
-          
+
           @if (isLoggedIn) {
-            if (isAdmin) {
-              <li class="nav-item dropdown">
-                <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Admin</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ShowUsers">Users</a></li>
-                </ul>
+          if (isAdmin) {
+          <li class="nav-item dropdown">
+            <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Admin</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="ShowUsers">Users</a></li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
               </li>
-            } 
-            <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="Zawartosc" asp-action="Index">Shopping Cart</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a>
-            </li>
-          } else {
-            <li class="nav-item">
-              <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Log In</a>
-            </li>
+            </ul>
+          </li>
           }
-          
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Zawartosc" asp-action="Index">Shopping Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Log Out</a>
+          </li>
+          } else {
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Log In</a>
+          </li>
+          }
+
         </ul>
       </div>
     </div>
@@ -58,15 +61,15 @@
 <div class="container">
   <main role="main" class="pb-3">
     @if (ViewData.ContainsKey("error")) {
-      <div class="alert alert-danger" role="alert">
-        @ViewData["error"]?.ToString()
-      </div>
+    <div class="alert alert-danger" role="alert">
+      @ViewData["error"]?.ToString()
+    </div>
     }
 
     @if (ViewData.ContainsKey("success")) {
-      <div class="alert alert-success" role="alert">
-        @ViewData["success"]?.ToString()
-      </div>
+    <div class="alert alert-success" role="alert">
+      @ViewData["success"]?.ToString()
+    </div>
     }
 
     @RenderBody()

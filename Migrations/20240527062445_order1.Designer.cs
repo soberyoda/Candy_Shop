@@ -2,6 +2,7 @@
 using Candy_Shop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Candy_Shop.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240527062445_order1")]
+    partial class order1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
@@ -84,10 +87,6 @@ namespace Candy_Shop.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("id_zawartosci");
-
-                    b.HasIndex("username");
-
                     b.ToTable("Orders");
                 });
 
@@ -144,25 +143,6 @@ namespace Candy_Shop.Migrations
                     b.HasIndex("username");
 
                     b.ToTable("Zawartosc");
-                });
-
-            modelBuilder.Entity("Candy_Shop.Models.Order", b =>
-                {
-                    b.HasOne("Candy_Shop.Models.Zawartosc", "Zawartosc")
-                        .WithMany()
-                        .HasForeignKey("id_zawartosci")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Candy_Shop.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("username")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
-                    b.Navigation("Zawartosc");
                 });
 
             modelBuilder.Entity("Candy_Shop.Models.Zawartosc", b =>
