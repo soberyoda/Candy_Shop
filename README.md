@@ -39,7 +39,7 @@ Everyone can preview available chocolates and filter them.
    <code>dotnet ef database update</code>
 
 ## Database
-<img width=auto src="./assets/Database.png" alt="Database" title="Database"/>
+<img width=auto src="./assets/db.png" alt="Database" title="Database"/>
 
 ## Application 
 [Screenshots from the application](https://github.com/soberyoda/Candy_Shop/tree/main/assets)
