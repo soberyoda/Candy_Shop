@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDBContext>(
   options => options.UseSqlite("Data Source=db.db")
 );
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddSession(options => {
   options.IdleTimeout = TimeSpan.FromDays(7);
@@ -36,6 +37,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseSession();
+
+if (app.Environment.IsDevelopment()) {
+  app.UseSwagger();
+  app.UseSwaggerUI(options => {
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+  });
+}
 
 app.MapControllerRoute(
   name: "default",

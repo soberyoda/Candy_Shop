@@ -1,4 +1,5 @@
-using System.Linq; 
+using System.Linq;
+using Candy_Shop.Attributes;
 using Candy_Shop.Data;
 using Candy_Shop.Models;
 using Candy_Shop.Utilities;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Candy_Shop.Controllers; 
 
+[KeepMessages]
 public class CzekoladkiController : Controller {
   private readonly ApplicationDBContext _context;
 
